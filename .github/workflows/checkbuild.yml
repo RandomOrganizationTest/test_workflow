@@ -1,7 +1,9 @@
 name: Check build on commit
 
-on:
+on: 
   push:
+    branches-ignore:
+      - master
 
 jobs:
   pushbuilder:
@@ -11,16 +13,13 @@ jobs:
       env:
         CONAN_USER_HOME: /home/conan
       volumes:
-        - /home/gh-action/github/conan:/home/conan
+        - /home/obs-vision/github/conan:/home/conan
       credentials:
         username: ${{ secrets.DOCKER_HUB_USERNAME }}
         password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
     steps:
       - name: Check out
         uses: actions/checkout@v2
-
-      - name: tests
-        run: conan profile list
 
       - name: Create build directory
         run: mkdir build
