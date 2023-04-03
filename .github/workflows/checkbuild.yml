@@ -1,9 +1,7 @@
 name: Check build on commit
 
-on: 
+on:
   push:
-    branches-ignore:
-      - master
 
 jobs:
   pushbuilder:
