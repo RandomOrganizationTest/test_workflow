@@ -3,7 +3,7 @@ name: Check build on commit
 on: 
   push:
     branches-ignore:
-      - master
+      - no-test
 
 jobs:
   pushbuilder:
@@ -13,7 +13,7 @@ jobs:
       env:
         CONAN_USER_HOME: /home/conan
       volumes:
-        - /home/obs-vision/github/conan:/home/conan
+        - /home/gh-action/github/conan:/home/conan
       credentials:
         username: ${{ secrets.DOCKER_HUB_USERNAME }}
         password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
