@@ -32,7 +32,7 @@ jobs:
 
       - name: Install conan dependencies
         working-directory: ./build
-        run: conan install .. -pr release --build missing --build cascade --update
+        run: conan install .. -pr /home/conan/profiles/release --build missing --build cascade --update
 
       - name: Build package
         working-directory: ./build
