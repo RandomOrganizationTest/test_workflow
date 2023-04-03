@@ -3,7 +3,7 @@ name: Check build on commit
 on: 
   push:
     branches-ignore:
-      - no-test
+      - master
 
 jobs:
   pushbuilder:

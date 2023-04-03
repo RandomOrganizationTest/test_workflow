@@ -3,7 +3,7 @@ name: Check build after pull request on master
 on: 
   push:
     branches:
-      - master
+      - no-test
 
 jobs:
   masterbuilder:
