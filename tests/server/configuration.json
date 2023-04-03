@@ -1,0 +1,24 @@
+{
+    "timeout": 1,
+    "port": 8090,
+    "plugins": [],
+    "databases": {
+        "redis": {
+            "uri": "127.0.0.1",
+            "port": 6379
+        },
+        "mongodb": {
+            "uri": "127.0.0.1",
+            "port": 27017
+        },
+        "mysql": {
+            "uri": "127.0.0.1",
+            "port": 3306
+        }
+    },
+    "jwt_token_timeout": {
+        "hours": 100,
+        "minutes": 0,
+        "seconds": 0
+    }
+}
