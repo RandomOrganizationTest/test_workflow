@@ -27,13 +27,19 @@ jobs:
       - name: Create build directory
         run: mkdir build
 
+      - name: Conan remote
+        run: conan remote add origin https://obspherit.jfrog.io/artifactory/api/conan/default-conan
+
+      - name: Conan user
+        run: export CONAN_REVISIONS_ENABLED=1;conan user -p cmVmdGtuOjAxOjE3MTIxNDg1NTI6WEJSV25hM0NXRkFQZkdtNmhJMldzRXRHelV5 -r origin obspher@obspher.com
+
       - name: Install conan dependencies
         working-directory: ./build
-        run: conan install .. -pr release --build missing --build cascade --update
+        run: export CONAN_REVISIONS_ENABLED=1;conan install .. --build missing --build cascade --update
 
       - name: Build package
         working-directory: ./build
-        run: conan build ..
+        run: export CONAN_REVISIONS_ENABLED=1;conan build ..
 
       - name: Static analysis
         run:  cppcheck src/ -Iinclude/ --error-exitcode=1 --enable=all --std=c++20 --inline-suppr
@@ -48,18 +54,10 @@ jobs:
           echo "::set-output name=version::$(conan inspect . --raw version)\n"
 
       - name: Export conan package
-        run: conan export-pkg . obspher/stable -bf ./build -pr release -f
+        run: export CONAN_REVISIONS_ENABLED=1;conan export-pkg . -bf ./build -f
+
+      - name: Conan create
+        run: export CONAN_REVISIONS_ENABLED=1;conan create .
 
       - name: Upload on conan server
-        run: conan upload ${{steps.conan_infos.outputs.name}}/${{steps.conan_infos.outputs.version}}@obspher/stable -r conanobspher
-
-      - name: Create Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{steps.conan_infos.outputs.version}}
-          release_name: Release ${{steps.conan_infos.outputs.version}}
-          body: Automatic release by ${{ github.action }}
-          draft: false
-          prerelease: false
+        run: export CONAN_REVISIONS_ENABLED=1;conan upload ${{steps.conan_infos.outputs.name}}/${{steps.conan_infos.outputs.version}}

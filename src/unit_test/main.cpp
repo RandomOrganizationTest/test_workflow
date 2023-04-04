@@ -1,4 +1,6 @@
+#include "test_workflow.hpp"
+
 int main()
 {
-    return 0;
+    test_workflow{}.display();
 }

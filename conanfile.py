@@ -1,7 +1,7 @@
 from conans import ConanFile, CMake
 
-class RouteOrderDeliveriesGet(ConanFile):
-    name = "route-order-deliveries-get"
+class TestWorkflow(ConanFile):
+    name = "test_workflow"
     version = "1.0.0"
     settings = "os", "compiler", "build_type", "arch"
     generators = "cmake", "txt"
@@ -14,20 +14,10 @@ class RouteOrderDeliveriesGet(ConanFile):
     }
 
     def build_requirements(self):
-        self.build_requires("cmake-common-options/[^1.0.0, loose=False]@obspher/stable")
-        self.build_requires("boost-ext-ut/[^1.1.8, loose=False]@obspher/third")
+        self.build_requires("cmake-common-options/[^1.0.0, loose=False]")
 
     def imports(self):
         self.copy("commonoptions.cmake")
-        self.copy("cpp-server", src="bin", dst="bin")
-
-    def requirements(self):
-        self.requires("service-security/[^3.0.0, loose=False]@obspher/stable")
-        self.requires("databases-connector/[^2.0.0, loose=False]@obspher/stable")
-        self.requires("mysql-obspher/[^0.0.1, loose=False]@obspher/stable")
-        self.requires("database-sql/[^1.0.0, loose=False]@obspher/stable")
-        self.requires("api-obspher/[^0.0.1, loose=False]@obspher/stable")
-        self.requires("cpp-server/[^3.0.0, loose=False]@obspher/stable")
 
     def build(self):
         cmake = CMake(self)
@@ -46,4 +36,4 @@ class RouteOrderDeliveriesGet(ConanFile):
         self.copy("*.hpp", dst="include", src="include")
 
     def package_info(self):
-        self.cpp_info.libs = ["%s-static" % self.name]
+        self.cpp_info.libs = ["test_workflow-static"]
