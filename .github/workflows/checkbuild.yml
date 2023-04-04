@@ -7,7 +7,7 @@ on:
 
 jobs:
   pushbuilder:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     container:
       image: obspher/ubuntu-dev:1.1.4
       env:
@@ -21,18 +21,12 @@ jobs:
       - name: Check out
         uses: actions/checkout@v2
 
-      - name: test
-        run: conan profile list
-
-      - name: test2
-        run: ls /home/conan/profiles
-
       - name: Create build directory
         run: mkdir build
 
       - name: Install conan dependencies
         working-directory: ./build
-        run: conan install .. -pr /home/conan/profiles/release --build missing --build cascade --update
+        run: conan install .. --build missing --build cascade --update
 
       - name: Build package
         working-directory: ./build
