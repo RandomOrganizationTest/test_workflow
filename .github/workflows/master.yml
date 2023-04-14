@@ -2,7 +2,7 @@ name: Shared Cache
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   build:
