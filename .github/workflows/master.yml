@@ -34,7 +34,7 @@ jobs:
       #    path: ./shared-conan-cache
 
       - name: Verification dependencies
-        run: ls ./shared-conan-cache; pwd;
+        run: pwd;
 
       - name: Install conan dependencies
         working-directory: ./build
