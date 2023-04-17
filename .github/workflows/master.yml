@@ -35,7 +35,6 @@ jobs:
           token: ${{ secrets.GHCR_PAT }}
           path: ~/shared-conan-cache
 
-
       - name: Create build directory
         run: mkdir build
 
@@ -63,7 +62,7 @@ jobs:
         run: |
           git config --global user.email "${{ github.actor }}"
           git config --global user.name "${{ github.actor }}"
-          git add . 
+          git add .
           git commit -m "Update cache"
           git push origin main
-        working-directory: RandomOrganizationTest/shared-conan-cache
+        working-directory: ~/shared-conan-cache
