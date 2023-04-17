@@ -36,7 +36,11 @@ jobs:
           path: ./shared-conan-cache
 
       - name: tests
-        run: ls -a ./shared-conan-cache
+        run: |
+          ls -a ./shared-conan-cache
+          pwd
+          cd ~/
+          pwd
 
       - name: Create build directory
         run: mkdir build
