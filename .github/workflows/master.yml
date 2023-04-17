@@ -16,15 +16,8 @@ jobs:
         username: ${{ secrets.DOCKER_HUB_USERNAME }}
         password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
     steps:
-      - name: Check out Git repository
+      - name: Check out
         uses: actions/checkout@v2
-        with:
-          repository: username/repo # replace with your repository information
-          ref: main # replace with the branch or tag you want to download
-          submodules: recursive # download repository submodules
-
-      - name: Copy desired folder
-        run: cp -r ./path/to/folder /path/to/workspace/folder
 
       - name: Conan remote
         run: conan remote add origin https://obspherit.jfrog.io/artifactory/api/conan/default-conan
