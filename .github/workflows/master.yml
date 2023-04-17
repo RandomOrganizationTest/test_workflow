@@ -58,6 +58,9 @@ jobs:
       #- name: Upload on conan server
       #  run: export CONAN_REVISIONS_ENABLED=1;conan upload ${{steps.conan_infos.outputs.name}}/${{steps.conan_infos.outputs.version}}
 
+      - name: tests
+        run: ls ~/shared-conan-cache
+
       - name: Commit and push changes
         run: |
           git config --global user.email "${{ github.actor }}"
