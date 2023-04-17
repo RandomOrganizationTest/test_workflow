@@ -34,6 +34,8 @@ jobs:
 
       - name: Clone conan cache
         run: |
+          git config --global user.email "${{ github.actor }}"
+          git config --global user.name "${{ github.actor }}"
           rm -r /shared-conan-cache
           git clone https://github.com/RandomOrganizationTest/shared-conan-cache.git /shared-conan-cache
 
