@@ -33,10 +33,10 @@ jobs:
           repository: RandomOrganizationTest/shared-conan-cache
           ref: main
           token: ${{ secrets.GHCR_PAT }}
-          path: ~/shared-conan-cache
+          path: ./shared-conan-cache
 
       - name: tests
-        run: ls -a ~/shared-conan-cache
+        run: ls -a ./shared-conan-cache
 
       - name: Create build directory
         run: mkdir build
@@ -62,7 +62,7 @@ jobs:
       #  run: export CONAN_REVISIONS_ENABLED=1;conan upload ${{steps.conan_infos.outputs.name}}/${{steps.conan_infos.outputs.version}}
 
       - name: tests
-        run: ls -a ~/shared-conan-cache
+        run: ls -a ./shared-conan-cache
 
       - name: Commit and push changes
         run: |
@@ -71,4 +71,4 @@ jobs:
           git add .
           git commit -m "Update cache"
           git push origin main
-        working-directory: ~/shared-conan-cache
+        working-directory: ./shared-conan-cache
