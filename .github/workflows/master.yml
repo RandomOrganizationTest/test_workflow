@@ -11,7 +11,7 @@ jobs:
     container:
       image: obspher/ubuntu-dev:1.1.4
       env:
-        CONAN_USER_HOME: ./shared-conan-cache
+        CONAN_USER_HOME: ~/shared-conan-cache
       volumes:
         - /home/obs-vision/github/conan:/home/conan
       credentials:
@@ -33,7 +33,7 @@ jobs:
           repository: RandomOrganizationTest/shared-conan-cache
           ref: main
           token: ${{ secrets.GHCR_PAT }}
-          path: ./shared-conan-cache
+          path: ~/shared-conan-cache
 
       - name: Verification dependencies
         run: pwd;
@@ -69,4 +69,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
         env:
           ARTIFACT_NAME: shared-conan-cache
-          ARTIFACT_PATH: /home/conan/.conan/data
+          ARTIFACT_PATH: ~/shared-conan-cache
