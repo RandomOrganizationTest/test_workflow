@@ -5,7 +5,7 @@ on:
     branches: 
       - main
 
-jjobs:
+jobs:
   pushbuilder:
     runs-on: ubuntu-latest
     container:
