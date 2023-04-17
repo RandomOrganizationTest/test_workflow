@@ -35,8 +35,6 @@ jobs:
           token: ${{ secrets.GHCR_PAT }}
           path: ~/shared-conan-cache
 
-      - name: Verification dependencies
-        run: pwd;
 
       - name: Create build directory
         run: mkdir build
@@ -61,13 +59,11 @@ jobs:
       #- name: Upload on conan server
       #  run: export CONAN_REVISIONS_ENABLED=1;conan upload ${{steps.conan_infos.outputs.name}}/${{steps.conan_infos.outputs.version}}
 
-      - name: Push to conan cache
-        uses: ad-m/github-push-action@master
-        with:
-          repository: RandomOrganizationTest/shared-conan-cache
-          branch: main
-          directory: .
-          github_token: ${{ secrets.GHCR_PAT }}
-        env:
-          ARTIFACT_NAME: shared-conan-cache
-          ARTIFACT_PATH: ~/shared-conan-cache
+      - name: Commit and push changes
+        run: |
+          git config --global user.email "${{ github.actor }}"
+          git config --global user.name "${{ github.actor }}"
+          git add . 
+          git commit -m "Update cache"
+          git push origin main
+        working-directory: RandomOrganizationTest/shared-conan-cache
