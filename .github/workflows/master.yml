@@ -11,7 +11,7 @@ jobs:
     container:
       image: obspher/ubuntu-dev:1.1.4
       env:
-        CONAN_USER_HOME: /home/conan
+        CONAN_USER_HOME: ./shared-conan-cache
       credentials:
         username: ${{ secrets.DOCKER_HUB_USERNAME }}
         password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
@@ -25,13 +25,13 @@ jobs:
       - name: Conan user
         run: export CONAN_REVISIONS_ENABLED=1;conan user -p cmVmdGtuOjAxOjE3MTIxNDg1NTI6WEJSV25hM0NXRkFQZkdtNmhJMldzRXRHelV5 -r origin obspher@obspher.com
 
-      - name: Clone conan cache
-        uses: actions/checkout@v2
-        with:
-          repository: RandomOrganizationTest/shared-conan-cache
-          ref: main
-          token: ${{ secrets.GHCR_PAT }}
-          path: ./shared-conan-cache
+      #- name: Clone conan cache
+      #  uses: actions/checkout@v2
+      #  with:
+      #    repository: RandomOrganizationTest/shared-conan-cache
+      #    ref: main
+      #    token: ${{ secrets.GHCR_PAT }}
+      #    path: ./shared-conan-cache
 
       - name: Verification dependencies
         run: ls ./shared-conan-cache; pwd;
