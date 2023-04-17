@@ -31,12 +31,8 @@ jobs:
         run: ls -a  ~/
 
       - name: Clone conan cache
-        uses: actions/checkout@v2
-        with:
-          repository: RandomOrganizationTest/shared-conan-cache
-          ref: main
-          token: ${{ secrets.GHCR_PAT }}
-          path:  /shared-conan-cache
+        run: git clone --depth 1 https://github.com/RandomOrganizationTest/shared-conan-cache.git /shared-conan-cache
+
 
       - name: tests
         run: |
