@@ -12,8 +12,6 @@ jobs:
       image: obspher/ubuntu-dev:1.1.4
       env:
         CONAN_USER_HOME: /home/conan
-      volumes:
-        - /home/obs-vision/github/conan:/home/conan
       credentials:
         username: ${{ secrets.DOCKER_HUB_USERNAME }}
         password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
