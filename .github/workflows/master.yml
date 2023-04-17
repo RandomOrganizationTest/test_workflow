@@ -28,15 +28,15 @@ jobs:
       - name: Folder dependencies
         run: mkdir -p /home/conan/.conan/data
 
+      - name: Verification dependencies
+        run: ls /home/conan/.conan/data
+
       - name: Clone conan cache
         uses: actions/checkout@v2
         with:
           repository: Villaroya-Kevin/shared-conan-cache
           ref: main
           path: /home/conan/.conan/data
-
-      - name: Verification dependencies
-        run: ls /home/conan/.conan/data
 
       - name: Install conan dependencies
         working-directory: ./build
