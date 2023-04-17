@@ -31,7 +31,7 @@ jobs:
         run: ls -a  ~/
 
       - name: Folder cache
-        run: mkdir  ~/shared-conan-cache
+        run: rm~/shared-conan-cache;mkdir  ~/shared-conan-cache
 
       - name: Clone conan cache
         uses: actions/checkout@v2
