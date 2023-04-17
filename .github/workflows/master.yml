@@ -66,6 +66,7 @@ jobs:
         with:
           repository: RandomOrganizationTest/shared-conan-cache
           branch: main
+          directory: .
           github_token: ${{ secrets.GHCR_PAT }}
         env:
           ARTIFACT_NAME: shared-conan-cache
