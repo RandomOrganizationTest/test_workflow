@@ -11,7 +11,7 @@ jobs:
     container:
       image: obspher/ubuntu-dev:1.1.4
       env:
-        CONAN_USER_HOME: ~/shared-conan-cache
+        CONAN_USER_HOME: /home/runner/shared-conan-cache
       volumes:
         - /home/obs-vision/github/conan:/home/conan
       credentials:
@@ -36,11 +36,11 @@ jobs:
           repository: RandomOrganizationTest/shared-conan-cache
           ref: main
           token: ${{ secrets.GHCR_PAT }}
-          path:  ~/shared-conan-cache
+          path:  /home/runner/shared-conan-cache
 
       - name: tests
         run: |
-          ls -a  ~/shared-conan-cache
+          ls -a  /home/runner/shared-conan-cache
           pwd
           cd ~/
           pwd
@@ -69,14 +69,13 @@ jobs:
       #  run: export CONAN_REVISIONS_ENABLED=1;conan upload ${{steps.conan_infos.outputs.name}}/${{steps.conan_infos.outputs.version}}
 
       - name: tests
-        run: ls -a ~/shared-conan-cache
+        run: ls -a /home/runner/shared-conan-cache
 
       - name: Commit and push changes
         run: |
-          cd ~/shared-conan-cache
+          cd /home/runner/shared-conan-cache
           git config --global user.email "${{ github.actor }}"
           git config --global user.name "${{ github.actor }}"
           git add .
           git commit -m "Update cache"
           git push origin main
-        working-directory: ./shared-conan-cache
