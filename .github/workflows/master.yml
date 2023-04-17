@@ -33,7 +33,7 @@ jobs:
           git config --global user.name "${{ github.actor }}";
           git config --global credential.helper store;
           rm -r /shared-conan-cache;
-          git clone https://github.com/RandomOrganizationTest/shared-conan-cache.git shared-conan-cache
+          git clone https://${{ github.actor }}@github.com/RandomOrganizationTest/shared-conan-cache.git shared-conan-cache
 
       - name: tests
         run: |
