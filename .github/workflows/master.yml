@@ -28,7 +28,7 @@ jobs:
         run: export CONAN_REVISIONS_ENABLED=1;conan user -p cmVmdGtuOjAxOjE3MTIxNDg1NTI6WEJSV25hM0NXRkFQZkdtNmhJMldzRXRHelV5 -r origin obspher@obspher.com
 
       - name: Folder cache
-        run: build  ~/shared-conan-cache
+        run: mkdir  ~/shared-conan-cache
 
       - name: Clone conan cache
         uses: actions/checkout@v2
