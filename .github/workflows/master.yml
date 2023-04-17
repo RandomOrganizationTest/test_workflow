@@ -1,45 +1,12 @@
-name: Check build after pull request on master
+name: Shared Cache
 
-on: 
+on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
-  masterbuilder:
-    runs-on: self-hosted
-    container:
-      image: obspher/ubuntu-dev:1.1.4
-      env:
-        CONAN_USER_HOME: /home/conan
-      volumes:
-        - /home/obs-vision/github/conan:/home/conan
-      credentials:
-        username: ${{ secrets.DOCKER_HUB_USERNAME }}
-        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-    steps:
-      - name: Check out
-        uses: actions/checkout@v2
-
-      - name: Check stability
-        run: bash -c "! grep -P "@obspher/dev" conanfile.py"
-
-      - name: Create build directory
-        run: mkdir build
-
-      - name: Conan remote
-        run: conan remote add origin https://obspherit.jfrog.io/artifactory/api/conan/default-conan
-
-      - name: Conan user
-        run: export CONAN_REVISIONS_ENABLED=1;conan user -p cmVmdGtuOjAxOjE3MTIxNDg1NTI6WEJSV25hM0NXRkFQZkdtNmhJMldzRXRHelV5 -r origin obspher@obspher.com
-
-      - name: Install conan dependencies
-        working-directory: ./build
-        run: export CONAN_REVISIONS_ENABLED=1;conan install .. --build missing --build cascade --update
-
-      - name: Build package
-        working-directory: ./build
-        run: export CONAN_REVISIONS_ENABLED=1;conan build ..
+  build:
+    runs-on: ubuntu-latest
 
       - name: Static analysis
         run:  cppcheck src/ -Iinclude/ --error-exitcode=1 --enable=all --std=c++20 --inline-suppr
