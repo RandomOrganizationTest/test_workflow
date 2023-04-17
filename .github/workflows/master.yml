@@ -61,3 +61,4 @@ jobs:
           path: /home/conan/.conan/data
           name: shared-conan-artifact
           retention-days: 0
+          permissions: 'write:org,read:org'
