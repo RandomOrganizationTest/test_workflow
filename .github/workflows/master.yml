@@ -36,11 +36,11 @@ jobs:
           repository: RandomOrganizationTest/shared-conan-cache
           ref: main
           token: ${{ secrets.GHCR_PAT }}
-          path:  shared-conan-cache
+          path:  /shared-conan-cache
 
       - name: tests
         run: |
-          ls -a shared-conan-cache
+          ls -a /shared-conan-cache
           pwd
           cd ~/
           pwd
@@ -69,11 +69,11 @@ jobs:
       #  run: export CONAN_REVISIONS_ENABLED=1;conan upload ${{steps.conan_infos.outputs.name}}/${{steps.conan_infos.outputs.version}}
 
       - name: tests
-        run: ls -a shared-conan-cache
+        run: ls -a /shared-conan-cache
 
       - name: Commit and push changes
         run: |
-          cd shared-conan-cache
+          cd /shared-conan-cache
           git config --global user.email "${{ github.actor }}"
           git config --global user.name "${{ github.actor }}"
           git add .
