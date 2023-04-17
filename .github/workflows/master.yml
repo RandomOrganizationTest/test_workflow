@@ -29,7 +29,7 @@ jobs:
 
       - name: Clone conan cache
         run:
-          git clone https://github.com/RandomOrganizationTest/shared-conan-cache.git --config credential.helper=store --config user.name=${{github.actors}} --config user.password=${{ secrets.ACCESS_TOKEN }}
+          git clone https://github.com/RandomOrganizationTest/shared-conan-cache.git --config credential.helper=store --config user.name=${{github.actor}} --config user.password=${{ secrets.ACCESS_TOKEN }}
 
       - name: tests
         run: |
