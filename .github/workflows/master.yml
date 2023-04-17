@@ -33,6 +33,7 @@ jobs:
         with:
           path: /github/home/.conan/data
           name: shared-conan-artifact
+          continue-on-error: true
 
       - name: Install conan dependencies
         working-directory: ./build
