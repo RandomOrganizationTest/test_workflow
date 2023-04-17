@@ -35,6 +35,9 @@ jobs:
           token: ${{ secrets.GHCR_PAT }}
           path: ~/shared-conan-cache
 
+      - name: tests
+        run: ls -a ~/shared-conan-cache
+
       - name: Create build directory
         run: mkdir build
 
