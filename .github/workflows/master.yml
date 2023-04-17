@@ -11,7 +11,7 @@ jobs:
     container:
       image: obspher/ubuntu-dev:1.1.4
       env:
-        CONAN_USER_HOME: shared-conan-cache
+        CONAN_USER_HOME: /shared-conan-cache
       volumes:
         - /home/obs-vision/github/conan:/home/conan
       credentials:
