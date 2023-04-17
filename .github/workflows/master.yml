@@ -31,7 +31,7 @@ jobs:
       - name: Artifact dependencies download
         uses: actions/download-artifact@v2
         with:
-          path: /github/home/.conan/data
+          path: /home/conan/.conan/data
           name: shared-conan-artifact
         continue-on-error: true
 
@@ -58,6 +58,6 @@ jobs:
       - name: Artifact dependencies upload
         uses: actions/upload-artifact@v2
         with:
-          path: /github/home/.conan/data
+          path: /home/conan/.conan/data
           name: shared-conan-artifact
           retention-days: 0

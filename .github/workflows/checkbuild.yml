@@ -28,12 +28,11 @@ jobs:
       - name: Conan user
         run: export CONAN_REVISIONS_ENABLED=1;conan user -p cmVmdGtuOjAxOjE3MTIxNDg1NTI6WEJSV25hM0NXRkFQZkdtNmhJMldzRXRHelV5 -r origin obspher@obspher.com
 
-      - name: Download artifact dependencies
+      - name: Artifact dependencies download
         uses: actions/download-artifact@v2
         with:
-          path: /github/home/.conan/data
+          path: /home/conan/.conan/data
           name: shared-conan-artifact
-        id: download-artifact
         continue-on-error: true
 
       - name: Install conan dependencies
