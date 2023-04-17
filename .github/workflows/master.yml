@@ -27,17 +27,20 @@ jobs:
       - name: Conan user
         run: export CONAN_REVISIONS_ENABLED=1;conan user -p cmVmdGtuOjAxOjE3MTIxNDg1NTI6WEJSV25hM0NXRkFQZkdtNmhJMldzRXRHelV5 -r origin obspher@obspher.com
 
+      - name: Folder cache
+        run: build  ~/shared-conan-cache
+
       - name: Clone conan cache
         uses: actions/checkout@v2
         with:
           repository: RandomOrganizationTest/shared-conan-cache
           ref: main
           token: ${{ secrets.GHCR_PAT }}
-          path: ./shared-conan-cache
+          path:  ~/shared-conan-cache
 
       - name: tests
         run: |
-          ls -a ./shared-conan-cache
+          ls -a  ~/shared-conan-cache
           pwd
           cd ~/
           pwd
