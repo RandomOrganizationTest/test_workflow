@@ -29,7 +29,7 @@ jobs:
         run: export CONAN_REVISIONS_ENABLED=1;conan user -p cmVmdGtuOjAxOjE3MTIxNDg1NTI6WEJSV25hM0NXRkFQZkdtNmhJMldzRXRHelV5 -r origin obspher@obspher.com
 
       - name: Artifact dependencies download
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           path: /home/conan/.conan/data
           name: shared-conan-artifact
@@ -56,9 +56,8 @@ jobs:
       #  run: export CONAN_REVISIONS_ENABLED=1;conan upload ${{steps.conan_infos.outputs.name}}/${{steps.conan_infos.outputs.version}}
 
       - name: Artifact dependencies upload
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           path: /home/conan/.conan/data
           name: shared-conan-artifact
-          retention-days: 0
           permissions: 'write:org,read:org'
