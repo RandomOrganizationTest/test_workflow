@@ -30,7 +30,7 @@ jobs:
       - name: Clone conan cache
         run: |
           git config --global user.name ${{github.actor}}
-          git config --global user.email "kevin.villaroya@gmail.com"
+          git config --global user.email "kevvil@obspher.com"
           git clone https://github.com/RandomOrganizationTest/shared-conan-cache.git --config credential.helper=store --config user.password=${{ secrets.ACCESS_TOKEN }}
 
       - name: tests
