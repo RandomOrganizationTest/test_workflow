@@ -27,12 +27,10 @@ jobs:
       - name: Conan user
         run: export CONAN_REVISIONS_ENABLED=1;conan user -p cmVmdGtuOjAxOjE3MTIxNDg1NTI6WEJSV25hM0NXRkFQZkdtNmhJMldzRXRHelV5 -r origin obspher@obspher.com
 
-      - name: tests
-        run: ls -a  ~/
-
       - name: Clone conan cache
-        run: git clone --depth 1 https://github.com/RandomOrganizationTest/shared-conan-cache.git /shared-conan-cache
-
+        run: |
+          rm -r /shared-conan-cache
+          git clone --depth 1 https://github.com/RandomOrganizationTest/shared-conan-cache.git /shared-conan-cache
 
       - name: tests
         run: |
