@@ -3,7 +3,7 @@ name: Check build after pull request on master
 on: 
   push:
     branches:
-      - master
+      - main
 
 jobs:
   masterbuilder:
@@ -61,3 +61,10 @@ jobs:
 
       - name: Upload on conan server
         run: export CONAN_REVISIONS_ENABLED=1;conan upload ${{steps.conan_infos.outputs.name}}/${{steps.conan_infos.outputs.version}}
+
+      - name: Artifact dependencies
+        uses: actions/upload-artifact@v2
+        with:
+          path: /github/home/.conan/data
+          name: shared-conan-artifact
+          retention-days: 0
