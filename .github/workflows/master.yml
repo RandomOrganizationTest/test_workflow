@@ -8,19 +8,30 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Static analysis
+        run:  cppcheck src/ -Iinclude/ --error-exitcode=1 --enable=all --std=c++20 --inline-suppr
 
-    - name: Init repsitory
-      run: |
-        mkdir temp
-        cd temp
-        echo 'init' > init.temp
-        cd ..
+      - name: Dynamic analysis on unit tests
+        run: echo valgrind --leak-check=full --show-reachable=yes --trace-children=yes --error-exitcode=33 ./build/bin/unit_test
 
-    - name: Artifact dependencies
-      uses: actions/upload-artifact@v2
-      with:
-        path: temp
-        name: shared-conan-artifact
+      - name: Get conan package name
+        id: conan_infos
+        run: |
+          echo "::set-output name=name::$(conan inspect . --raw name)\n"
+          echo "::set-output name=version::$(conan inspect . --raw version)\n"
+
+      - name: Export conan package
+        run: export CONAN_REVISIONS_ENABLED=1;conan export-pkg . -bf ./build -f
+
+      - name: Conan create
+        run: export CONAN_REVISIONS_ENABLED=1;conan create .
+
+      - name: Upload on conan server
+        run: export CONAN_REVISIONS_ENABLED=1;conan upload ${{steps.conan_infos.outputs.name}}/${{steps.conan_infos.outputs.version}}
+
+      - name: Artifact dependencies
+        uses: actions/upload-artifact@v2
+        with:
+          path: /github/home/.conan/data
+          name: shared-conan-artifact
+          retention-days: 0
