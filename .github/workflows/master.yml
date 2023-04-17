@@ -28,7 +28,7 @@ jobs:
       - name: Clone conan cache
         uses: actions/checkout@v2
         with:
-          repository: Villaroya-Kevin/shared-conan-cache
+          repository: RandomOrganizationTest/shared-conan-cache
           ref: main
           path: ./shared-conan-cache
 
@@ -58,7 +58,7 @@ jobs:
       - name: Push to conan cache
         uses: ad-m/github-push-action@master
         with:
-          repository: Villaroya-Kevin/shared-conan-cache
+          repository: RandomOrganizationTest/shared-conan-cache
           branch: main
           github_token: ${{ secrets.GITHUB_TOKEN }}
         env:
