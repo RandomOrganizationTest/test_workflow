@@ -1,8 +1,8 @@
-name: Check build on master
+name: Check build on branch
 
 on:
   push:
-    branches: 
+    branches-ignore:
       - main
 
 jobs:
