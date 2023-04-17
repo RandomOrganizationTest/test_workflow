@@ -30,6 +30,7 @@ jobs:
         with:
           repository: RandomOrganizationTest/shared-conan-cache
           ref: main
+          token: ${{ secrets.GHCR_PAT }}
           path: ./shared-conan-cache
 
       - name: Verification dependencies
@@ -61,6 +62,7 @@ jobs:
           repository: RandomOrganizationTest/shared-conan-cache
           branch: main
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GHCR_PAT }}
         env:
           ARTIFACT_NAME: shared-conan-cache
           ARTIFACT_PATH: /home/conan/.conan/data
