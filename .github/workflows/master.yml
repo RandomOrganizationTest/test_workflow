@@ -27,10 +27,15 @@ jobs:
       - name: Conan user
         run: export CONAN_REVISIONS_ENABLED=1;conan user -p cmVmdGtuOjAxOjE3MTIxNDg1NTI6WEJSV25hM0NXRkFQZkdtNmhJMldzRXRHelV5 -r origin obspher@obspher.com
 
+      - name: Set Git user
+        run: |
+          git config --global user.email "${{ github.actor }}"
+          git config --global user.name "${{ github.actor }}"
+
       - name: Clone conan cache
         run: |
           rm -r /shared-conan-cache
-          git clone --depth 1 https://github.com/RandomOrganizationTest/shared-conan-cache.git /shared-conan-cache
+          git clone https://github.com/RandomOrganizationTest/shared-conan-cache.git /shared-conan-cache
 
       - name: tests
         run: |
@@ -68,8 +73,6 @@ jobs:
       - name: Commit and push changes
         run: |
           cd /shared-conan-cache
-          git config --global user.email "${{ github.actor }}"
-          git config --global user.name "${{ github.actor }}"
           git add .
           git commit -m "Update cache"
           git push origin main
