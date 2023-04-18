@@ -59,8 +59,7 @@ jobs:
 
       - name: Upload artifact
         run: |
-          local directory="/shared-conan-cache/.conan/data"
-          for file in "$directory"/*; do
+          for file in "/shared-conan-cache/.conan/data"/*; do
             if [[ -d "$file" ]]; then
               upload_files "$file"
             else
