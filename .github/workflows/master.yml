@@ -59,7 +59,12 @@ jobs:
 
       - name: Upload artifact
         run: |
-          for file in /shared-conan-cache/.conan/data/*;
-          do
-            curl -u kevin:PuGs62Zk9LSGm6b1H41c^iXK7#OIW# -XPUT https://obspherit.jfrog.io/artifactory/default-conan-local/artifacts/$file -T $file
+          local directory="/shared-conan-cache/.conan/data"
+          for file in "$directory"/*; do
+            if [[ -d "$file" ]]; then
+              upload_files "$file"
+            else
+              file_name=$(basename "$file")
+              curl -u kevin:PuGs62Zk9LSGm6b1H41c^iXK7#OIW# -XPUT https://obspherit.jfrog.io/artifactory/default-conan-local/artifacts/"$file_name" -T "$file"
+            fi
           done
