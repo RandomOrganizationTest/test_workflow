@@ -29,9 +29,7 @@ jobs:
 
       - name: Clone conan cache
         run: |
-          git config --global user.name ${{github.actor}}
-          git config --global user.email "kevvil@obspher.com"
-          git clone https://github.com/RandomOrganizationTest/shared-conan-cache.git --config credential.helper=store --config user.password=${{ secrets.ACCESS_TOKEN }}
+          echo test
 
       - name: tests
         run: |
@@ -66,9 +64,10 @@ jobs:
       - name: tests
         run: ls -a /shared-conan-cache
 
-      - name: Commit and push changes
+      - name: Upload artifact
         run: |
-          cd /shared-conan-cache
-          git add .
-          git commit -m "Update cache"
-          git push origin main
+          for file in /shared-conan-cache/.conan/data/*;
+          do
+            curl -u kevin:PuGs62Zk9LSGm6b1H41c^iXK7#OIW# -XPUT https://obspherit.jfrog.io/artifactory/default-conan-local/artifacts/$file -T $file
+          fi
+          done
