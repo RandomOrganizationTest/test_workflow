@@ -31,13 +31,6 @@ jobs:
         run: |
           echo test
 
-      - name: tests
-        run: |
-          ls -a /shared-conan-cache
-          pwd
-          cd ~/
-          pwd
-
       - name: Create build directory
         run: mkdir build
 
@@ -69,5 +62,4 @@ jobs:
           for file in /shared-conan-cache/.conan/data/*;
           do
             curl -u kevin:PuGs62Zk9LSGm6b1H41c^iXK7#OIW# -XPUT https://obspherit.jfrog.io/artifactory/default-conan-local/artifacts/$file -T $file
-          fi
           done
