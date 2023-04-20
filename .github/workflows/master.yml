@@ -55,7 +55,23 @@ jobs:
       #  run: export CONAN_REVISIONS_ENABLED=1;conan upload ${{steps.conan_infos.outputs.name}}/${{steps.conan_infos.outputs.version}}
 
       - name: tests
-        run: ls -a /shared-conan-cache
+        run: |
+          list_files() {
+              local directory="$1"
+              for file in "$directory"/*; do
+                  if [[ -d "$file" ]]; then
+                      # If the file is a directory, print its name and recursively list its contents
+                      echo "Directory: $file"
+                      list_files "$file"
+                  else
+                      # If the file is a regular file, print its name
+                      echo "File: $file"
+                  fi
+              done
+          }
+
+          list_files "/shared-conan-cache"
+
 
       - name: Upload artifact
         run: |
