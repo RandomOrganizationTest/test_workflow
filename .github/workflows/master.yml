@@ -81,7 +81,8 @@ jobs:
         run: |
           upload_files() {
             local directory="$1"
-            for file in "$directory"/* "$directory"/.*; do
+            shopt -s dotglob  # Enable dotglob option to include files/folders starting with dot
+            for file in "$directory"/*; do
               # Skip ./ and ../ directories
               if [ "$file" = "$directory/." ] || [ "$file" = "$directory/.." ]; then
                 continue
