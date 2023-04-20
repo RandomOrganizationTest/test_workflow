@@ -59,21 +59,23 @@ jobs:
 
       - name: Upload artifact
         run: |
-         upload_files() {
-          local directory="$1"
-          for file in "$directory"/*; do
-              if [[ -d "$file" ]]; then
-                  # Create the directory in the target Artifactory repository
-                  dir_name=$(basename "$file")
-                  curl -u kevin:PuGs62Zk9LSGm6b1H41c^iXK7#OIW# -XPUT "https://obspherit.jfrog.io/artifactory/default-conan-local/artifacts/$dir_name" -H "Content-Type: application/vnd.org.jfrog.artifactory.storage.FolderInfo+json"
-                  # Recursively upload the files in the directory
-                  upload_files "$file"
-              else
-                  # Upload the file to the target Artifactory repository
-                  file_name=$(basename "$file")
-                  curl -u kevin:PuGs62Zk9LSGm6b1H41c^iXK7#OIW# -XPUT "https://obspherit.jfrog.io/artifactory/default-conan-local/artifacts/$file_name" -T "$file"
-              fi
-          done
+          upload_files() {
+              local directory="$1"
+              for file in "$directory"/*; do
+                  if [[ -d "$file" ]]; then
+                      # Create the directory in the target Artifactory repository
+                      dir_name=$(basename "$file")
+                      curl -u kevin:PuGs62Zk9LSGm6b1H41c^iXK7#OIW# -XPUT "https://obspherit.jfrog.io/artifactory/default-conan-local/artifacts/$dir_name" -H "Content-Type: application/vnd.org.jfrog.artifactory.storage.FolderInfo+json"
+                      echo "Uploaded directory: $file"
+                      # Recursively upload the files in the directory
+                      upload_files "$file"
+                  else
+                      # Upload the file to the target Artifactory repository
+                      file_name=$(basename "$file")
+                      curl -u kevin:PuGs62Zk9LSGm6b1H41c^iXK7#OIW# -XPUT "https://obspherit.jfrog.io/artifactory/default-conan-local/artifacts/$file_name" -T "$file"
+                      echo "Uploaded file: $file"
+                  fi
+              done
           }
 
           upload_files "/shared-conan-cache/.conan/data"
