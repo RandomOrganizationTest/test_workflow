@@ -51,9 +51,6 @@ jobs:
       - name: Export conan package
         run: export CONAN_REVISIONS_ENABLED=1;conan export-pkg . -bf ./build -f
 
-      #- name: Upload on conan server
-      #  run: export CONAN_REVISIONS_ENABLED=1;conan upload ${{steps.conan_infos.outputs.name}}/${{steps.conan_infos.outputs.version}}
-
       - name: tests
         run: |
           list_files() {
@@ -81,6 +78,7 @@ jobs:
         run: |
           upload_files() {
             local directory="$1"
+            local path="$2"
             shopt -s dotglob  # Enable dotglob option to include files/folders starting with dot
             for file in "$directory"/*; do
               # Skip ./ and ../ directories
@@ -90,16 +88,16 @@ jobs:
               if [ -d "$file" ]; then
                 # If the file is a directory, print its name and recursively list its contents
                 dir_name=$(basename "$file")
-                curl -u kevin:PuGs62Zk9LSGm6b1H41c^iXK7#OIW# -XPUT "https://obspherit.jfrog.io/artifactory/default-conan-local/artifacts/$dir_name" -H "Content-Type: application/vnd.org.jfrog.artifactory.storage.FolderInfo+json"
-                upload_files "$file"
+                curl -u kevin:PuGs62Zk9LSGm6b1H41c^iXK7#OIW# -XPUT "https://obspherit.jfrog.io/artifactory/default-conan-local/artifacts/$path/$dir_name" -H "Content-Type: application/vnd.org.jfrog.artifactory.storage.FolderInfo+json"
+                upload_files "$file" "$path/$dir_name"
               else
                 file_name=$(basename "$file")
-                curl -u kevin:PuGs62Zk9LSGm6b1H41c^iXK7#OIW# -XPUT "https://obspherit.jfrog.io/artifactory/default-conan-local/artifacts/$file_name" -T "$file"
+                curl -u kevin:PuGs62Zk9LSGm6b1H41c^iXK7#OIW# -XPUT "https://obspherit.jfrog.io/artifactory/default-conan-local/artifacts/$path/$file_name" -T "$file"
               fi
             done
           }
 
-          upload_files "/shared-conan-cache"
+          upload_files "/shared-conan-cache" ""
         shell: bash -e {0}
 
 
