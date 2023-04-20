@@ -57,19 +57,18 @@ jobs:
       - name: tests
         run: |
           #!/bin/bash
-
           list_files() {
-              local directory="$1"
-              for file in "$directory"/*; do
-                  if [[ -d "$file" ]]; then
-                      # If the file is a directory, print its name and recursively list its contents
-                      echo "Directory: $file"
-                      list_files "$file"
-                  else
-                      # If the file is a regular file, print its name
-                      echo "File: $file"
-                  fi
-              done
+            local directory="$1"
+            for file in "$directory"/*; do
+              if [ -d "$file" ]; then
+                # If the file is a directory, print its name and recursively list its contents
+                echo "Directory: $file"
+                list_files "$file"
+              else
+                # If the file is a regular file, print its name
+                echo "File: $file"
+              fi
+            done
           }
 
           list_files "/shared-conan-cache"
