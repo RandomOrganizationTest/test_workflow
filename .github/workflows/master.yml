@@ -73,6 +73,7 @@ jobs:
           }
 
           list_files "/shared-conan-cache"
+        shell: bash -e {0}
 
       - name: Upload artifact
         run: |
@@ -96,4 +97,6 @@ jobs:
           }
 
           upload_files "/shared-conan-cache/.conan/data"
+        shell: bash -e {0}
+
 
