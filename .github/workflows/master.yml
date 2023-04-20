@@ -74,8 +74,6 @@ jobs:
 
           list_files "/shared-conan-cache"
 
-
-
       - name: Upload artifact
         run: |
           upload_files() {
