@@ -59,6 +59,10 @@ jobs:
           list_files() {
             local directory="$1"
             for file in "$directory"/* "$directory"/.*; do
+              # Skip ./ and ../ directories
+              if [ "$file" = "$directory/." ] || [ "$file" = "$directory/.." ]; then
+                continue
+              fi
               if [ -d "$file" ]; then
                 # If the file is a directory, print its name and recursively list its contents
                 echo "Directory: $file"
