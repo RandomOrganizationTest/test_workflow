@@ -88,14 +88,14 @@ jobs:
               if [ -d "$file" ]; then
                 # If the file is a directory, print its name and recursively list its contents
                 dir_name=$(basename "$file")
-                curl -u kevin:PuGs62Zk9LSGm6b1H41c^iXK7#OIW# -XPUT "https://***it.jfrog.io/artifactory/default-conan-local/artifacts/$path/$dir_name" -H "Content-Type: application/json"
+                curl -u kevin:PuGs62Zk9LSGm6b1H41c^iXK7#OIW# -XPUT "https://obspherit.jfrog.io/artifactory/default-conan-local/artifacts/$path/$dir_name" -H "Content-Type: application/json"
                 # Check if the path is a folder before uploading files to it
                 if [[ "$path/$dir_name" == */* ]]; then
                   upload_files "$file" "$path/$dir_name"
                 fi
               else
                 file_name=$(basename "$file")
-                curl -u kevin:PuGs62Zk9LSGm6b1H41c^iXK7#OIW# -XPUT "https://***it.jfrog.io/artifactory/default-conan-local/artifacts/$path/$file_name" -T "$file"
+                curl -u kevin:PuGs62Zk9LSGm6b1H41c^iXK7#OIW# -XPUT "https://obspherit.jfrog.io/artifactory/default-conan-local/artifacts/$path/$file_name" -T "$file"
               fi
             done
           }
