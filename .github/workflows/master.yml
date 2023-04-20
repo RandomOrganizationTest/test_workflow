@@ -56,10 +56,9 @@ jobs:
 
       - name: tests
         run: |
-          #!/bin/bash
           list_files() {
             local directory="$1"
-            for file in "$directory"/*; do
+            for file in "$directory"/* "$directory"/.*; do
               if [ -d "$file" ]; then
                 # If the file is a directory, print its name and recursively list its contents
                 echo "Directory: $file"
