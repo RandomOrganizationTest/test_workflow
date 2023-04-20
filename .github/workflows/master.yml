@@ -88,7 +88,7 @@ jobs:
               if [ -d "$file" ]; then
                 # If the file is a directory, print its name and recursively list its contents
                 dir_name=$(basename "$file")
-                curl -u kevin:PuGs62Zk9LSGm6b1H41c^iXK7#OIW# -XPUT "https://obspherit.jfrog.io/artifactory/default-conan-local/artifacts/$path/$dir_name" -H "Content-Type: application/vnd.org.jfrog.artifactory.storage.FolderInfo+json"
+                curl -u kevin:PuGs62Zk9LSGm6b1H41c^iXK7#OIW# -XPUT "https://obspherit.jfrog.io/artifactory/default-conan-local/artifacts/$path/$dir_name" -H "Content-Type: application/json"
                 upload_files "$file" "$path/$dir_name"
               else
                 file_name=$(basename "$file")
@@ -99,5 +99,6 @@ jobs:
 
           upload_files "/shared-conan-cache" "shared-conan-cache"
         shell: bash -e {0}
+
 
 
