@@ -7,7 +7,7 @@ on:
 
 jobs:
   pushbuilder:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     container:
       image: obspher/ubuntu-dev:1.1.4
       env:
