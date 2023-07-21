@@ -21,23 +21,13 @@ jobs:
       - name: Check out
         uses: actions/checkout@v2
 
-      - name: Conan remote
-        run: conan remote add origin https://obspherit.jfrog.io/artifactory/api/conan/default-conan
-
-      - name: Conan user
-        run: export CONAN_REVISIONS_ENABLED=1;conan user -p cmVmdGtuOjAxOjE3MTIxNDg1NTI6WEJSV25hM0NXRkFQZkdtNmhJMldzRXRHelV5 -r origin obspher@obspher.com
-
-      - name: Clone conan cache
-        run: |
-          echo test
-
       - name: Create build directory
         run: mkdir build
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PAT_TOKEN }}
           branch: pages
           folder: doc
         
