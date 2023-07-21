@@ -34,74 +34,20 @@ jobs:
       - name: Create build directory
         run: mkdir build
 
-      - name: Install conan dependencies
-        working-directory: ./build
-        run: export CONAN_REVISIONS_ENABLED=1;conan install .. --build missing --build cascade --update
-
-      - name: Build package
-        working-directory: ./build
-        run: export CONAN_REVISIONS_ENABLED=1;conan build ..
-
-      - name: Static analysis
-        run:  cppcheck src/ -Iinclude/ --error-exitcode=1 --enable=all --std=c++20 --inline-suppr
-
-      - name: Dynamic analysis on unit tests
-        run: echo valgrind --leak-check=full --show-reachable=yes --trace-children=yes --error-exitcode=33 ./build/bin/unit_test
-
-      - name: Export conan package
-        run: export CONAN_REVISIONS_ENABLED=1;conan export-pkg . -bf ./build -f
-
-      - name: tests
-        run: |
-          list_files() {
-            local directory="$1"
-            for file in "$directory"/* "$directory"/.*; do
-              # Skip ./ and ../ directories
-              if [ "$file" = "$directory/." ] || [ "$file" = "$directory/.." ]; then
-                continue
-              fi
-              if [ -d "$file" ]; then
-                # If the file is a directory, print its name and recursively list its contents
-                echo "Directory: $file"
-                list_files "$file"
-              else
-                # If the file is a regular file, print its name
-                echo "File: $file"
-              fi
-            done
-          }
-
-          list_files "/shared-conan-cache"
-        shell: bash -e {0}
-
-      - name: Upload artifact
-        run: |
-          upload_files() {
-            local directory="$1"
-            local path="$2"
-            shopt -s dotglob  # Enable dotglob option to include files/folders starting with dot
-            for file in "$directory"/*; do
-              # Skip ./ and ../ directories
-              if [ "$file" = "$directory/." ] || [ "$file" = "$directory/.." ]; then
-                continue
-              fi
-              if [ -d "$file" ]; then
-                # If the file is a directory, print its name and recursively list its contents
-                dir_name=$(basename "$file")
-                curl -u kevin:PuGs62Zk9LSGm6b1H41c^iXK7#OIW# -XPUT "https://obspherit.jfrog.io/artifactory/default-conan-local/artifacts/$path/$dir_name" -H "Content-Type: application/json"
-                # Check if the path is a folder before uploading files to it
-                if [[ "$path/$dir_name" == */* ]]; then
-                  upload_files "$file" "$path/$dir_name"
-                fi
-              else
-                file_name=$(basename "$file")
-                curl -u kevin:PuGs62Zk9LSGm6b1H41c^iXK7#OIW# -XPUT "https://obspherit.jfrog.io/artifactory/default-conan-local/artifacts/$path/$file_name" -T "$file"
-              fi
-            done
-          }
-
-          upload_files "/shared-conan-cache" "shared-conan-cache"
-        shell: bash -e {0}
-
-
-
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: pages
+          folder: doc
+        
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{steps.conan_infos.outputs.version}}
+          release_name: Release ${{steps.conan_infos.outputs.version}}
+          body: Automatic release by ${{ github.action }}
+          draft: false
+          prerelease: false
